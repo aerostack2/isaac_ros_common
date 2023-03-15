@@ -202,7 +202,7 @@ else
     bash /home/$USER/project_copilot/clone_onnx_weights.bash
 fi
 
-DOCKER_ARGS+=("-v /home/$USER/project_copilot:/home/admin/as2_projects/project_copilot")
+DOCKER_ARGS+=("-v /home/$USER/project_copilot:/root/as2_projects/project_copilot")
 
 if [[ $PLATFORM == "aarch64" ]]; then
     DOCKER_ARGS+=("-v /usr/bin/tegrastats:/usr/bin/tegrastats")
@@ -251,7 +251,7 @@ docker run -it --rm \
     -v /etc/localtime:/etc/localtime:ro \
     --name "$CONTAINER_NAME" \
     --runtime nvidia \
-    --user="admin" \
+    --user root \
     --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \
     --workdir /workspaces/isaac_ros-dev \
     $@ \
