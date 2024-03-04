@@ -18,5 +18,6 @@
 # Restart udev daemon
 sudo ip l set lo multicast on
 sudo service udev restart
+sudo udevadm control --reload-rules && sudo udevadm trigger 
 
 $@

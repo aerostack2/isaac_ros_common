@@ -9,7 +9,6 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-
 USER root
 RUN apt-get update && apt-get install -y ros-dev-tools
 
@@ -64,3 +63,9 @@ RUN source /home/admin/aerostack2_ws/install/setup.bash && colcon build --symlin
 RUN echo "source /home/admin/psdk_ws/install/setup.bash" >> /home/admin/.bashrc
 
 COPY ./udev_rules/DJIDevice.rules /etc/udev/rules.d/DJIDevice.rules
+# COPY ./udev_rules/99-dji-psdk-custom.rules /etc/udev/rules.d/99-dji-psdk-custom.rules
+
+USER root 
+RUN adduser admin dialout
+USER admin
+
