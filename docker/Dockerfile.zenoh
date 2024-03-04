@@ -12,7 +12,6 @@ FROM ${BASE_IMAGE}
 USER root
 RUN apt-get update && apt-get install -y ros-humble-rmw-cyclonedds-cpp curl
 RUN apt-get install llvm-dev libclang-dev -y
-RUN echo "ip l set lo multicast on" >> /etc/rc.local
 
 USER admin
 

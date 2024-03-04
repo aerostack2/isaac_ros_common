@@ -16,6 +16,7 @@
 # rosdep update
 
 # Restart udev daemon
+sudo ip l set lo multicast on
 sudo service udev restart
 
 $@
