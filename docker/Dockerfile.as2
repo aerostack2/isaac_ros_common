@@ -55,7 +55,6 @@ WORKDIR /home/admin/psdk_ws
 RUN source /opt/ros/humble/setup.bash && rosdep install -y -r -q --from-paths src --ignore-src
 RUN apt-get update && apt-get install -y tmux tmuxinator 
 
-COPY ./udev_rules/DJIDevice.rules /etc/udev/rules.d/DJIDevice.rules
 
 USER admin
 WORKDIR /home/admin/psdk_ws
@@ -63,3 +62,5 @@ RUN git clone https://github.com/aerostack2/as2_platform_dji_psdk.git -b code_re
 RUN source /home/admin/aerostack2_ws/install/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 RUN echo "source /home/admin/psdk_ws/install/setup.bash" >> /home/admin/.bashrc
+
+COPY ./udev_rules/DJIDevice.rules /etc/udev/rules.d/DJIDevice.rules
