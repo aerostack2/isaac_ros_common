@@ -9,9 +9,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-RUN apt-get update && apt-get install -y ros-humble-cmake-* 
-RUN apt-get update && apt-get install -y ros-humble-ament-*
-RUN apt-get update && apt-get install -y ros-humble-rmw-cyclonedds-cpp
+
+USER root
 RUN apt-get update && apt-get install -y ros-dev-tools
 
 USER admin

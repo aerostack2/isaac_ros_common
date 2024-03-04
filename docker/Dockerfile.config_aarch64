@@ -11,17 +11,11 @@ FROM ${BASE_IMAGE}
 
 USER admin
 
-#install python dependencies
+#install python dependencies for NN
 RUN python3 -m pip install -U ultralytics
 RUN python3 -m pip install -U onnx
-
-# RUN python3 -m pip install -U onnxruntime-gpu
-
 RUN wget https://nvidia.box.com/shared/static/iizg3ggrtdkqawkmebbfixo7sce6j365.whl -O onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
 RUN python3 -m pip install -U onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
 
-# WORKDIR /home/admin/
-# COPY --chown=admin:admin as2_projects /home/admin/as2_projects
-# RUN chmod +x /home/admin/as2_projects/project_copilot/clone_onnx_weights.bash
-# RUN bash /home/admin/as2_projects/project_copilot/clone_onnx_weights.bash
+
 

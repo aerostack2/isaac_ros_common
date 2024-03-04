@@ -1,2 +1,3 @@
 CONFIG_IMAGE_KEY="ros2_humble.user.as2.pannel_detector"
-CONFIG_DOCKER_SEARCH_DIRS=(workspaces/isaac_ros-dev/ros_ws/docker)
+CONFIG_IMAGE_KEY="ros2_humble"
+CONFIG_DOCKER_SEARCH_DIRS=(docker)

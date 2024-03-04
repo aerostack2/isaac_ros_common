@@ -120,21 +120,60 @@ if [ "$(docker ps -a --quiet --filter status=running --filter name=$CONTAINER_NA
     exit 0
 fi
 
+
+# check if additional configs for the platform exist
+ARCH_CONFIG=""
+DOCKERFILE_PATH=""
+for dir in "$(dirname $ROOT)/${CONFIG_DOCKER_SEARCH_DIRS[@]}"
+do
+    DOCKERFILE_PATH="$dir/Dockerfile.config_${PLATFORM}"
+    if [[ -f "$DOCKERFILE_PATH" ]]; then
+        break
+    fi
+done
+if [[ ! -f "$DOCKERFILE_PATH" ]]; then
+    print_info "No especific Dockerfile config found for platform: $PLATFORM"
+else
+    print_info "Using Dockerfile config: $DOCKERFILE_PATH"
+    ARCH_CONFIG=.config_${PLATFORM}
+fi
+
 # Build image
 IMAGE_KEY=ros2_humble
 if [[ ! -z "${CONFIG_IMAGE_KEY}" ]]; then
     IMAGE_KEY=$CONFIG_IMAGE_KEY
 fi
 
-BASE_IMAGE_KEY=$PLATFORM.user
+USER_CONFIG=".user"
 if [[ ! -z "${IMAGE_KEY}" ]]; then
     BASE_IMAGE_KEY=$PLATFORM.$IMAGE_KEY
 
     # If the configured key does not have .user, append it last
     if [[ $IMAGE_KEY != *".user"* ]]; then
-        BASE_IMAGE_KEY=$BASE_IMAGE_KEY.user
+        BASE_IMAGE_KEY=$BASE_IMAGE_KEY$USER_CONFIG
     fi
+    #   BASE_IMAGE_KEY=$BASE_IMAGE_KEY$USER_CONFIG
+    # fi
+
+
+    if [[ ! -z "$ARCH_CONFIG" ]]; then
+      # use sed for replace $USER_CONFIG with $ARCH_CONFIG in the base image key
+      # echo "BASE_IMAGE_KEY: $BASE_IMAGE_KEY"
+      SED_EXPRESSION="s/$USER_CONFIG/$USER_CONFIG$ARCH_CONFIG/"
+      # echo "SED_EXPRESSION: $SED_EXPRESSION"
+      BASE_IMAGE_KEY=$(echo $BASE_IMAGE_KEY | sed ${SED_EXPRESSION})
+    fi
+
 fi
+
+# Check for extra architecture specific image with dependencies
+
+# echo "DOCKER SEARCH DIRS: ${CONFIG_DOCKER_SEARCH_DIRS[@]}"
+# find a Dockerfile.$ARCH_config file in the search directories
+
+print_info "Using base image key: $BASE_IMAGE_KEY"
+# exit 1
+
 
 print_info "Building $BASE_IMAGE_KEY base as image: $BASE_NAME using key $BASE_IMAGE_KEY"
 $ROOT/build_base_image.sh $BASE_IMAGE_KEY $BASE_NAME '' '' ''

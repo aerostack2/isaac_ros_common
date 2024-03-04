@@ -1,0 +1,33 @@
+# Copyright (c) 2022, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+USER root
+#install Zenoh bridge
+RUN apt-get update && apt-get install -y ros-humble-rmw-cyclonedds-cpp curl
+RUN echo "ip l set lo multicast on" >> /etc/rc.local
+
+USER admin
+
+WORKDIR /home/admin/Downloads
+RUN wget https://mirror.dogado.de/eclipse/zenoh/zenoh-plugin-ros2dds/latest/x86_64-unknown-linux-gnu/zenoh-bridge-ros2dds-0.10.1-rc.2-x86_64-unknown-linux-gnu.zip -O zenoh-bridge.zip
+# RUN wget https://mirror.serverion.com/eclipse/zenoh/zenoh-plugin-ros2dds/latest/x86_64-unknown-linux-gnu/zenoh-plugin-ros2dds-0.10.1-rc.2-x86_64-unknown-linux-gnu-deb-pkgs.zip -O zenoh-bridge.zip
+RUN unzip zenoh-bridge.zip
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs 
+
+
+RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /home/admin/.bashrc
+RUN echo 'export ROS_LOCALHOST_ONLY=0' >> /home/admin/.bashrc
+
+#install python dependencies for NN
+# RUN python3 -m pip install -U ultralytics
+# RUN python3 -m pip install -U onnx
+# RUN python3 -m pip install -U onnxruntime-gpu
+
