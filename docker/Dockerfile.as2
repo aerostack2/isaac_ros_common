@@ -23,12 +23,12 @@ WORKDIR /home/admin/aerostack2_ws/src
 RUN git clone https://github.com/aerostack2/aerostack2.git
 USER root
 WORKDIR /home/admin/aerostack2_ws
+RUN touch /home/admin/aerostack2_ws/src/aerostack2/as2_aerial_platforms/as2_platform_gazebo/COLCON_IGNORE
+RUN touch /home/admin/aerostack2_ws/src/aerostack2/as2_simulation_assets/COLCON_IGNORE
 RUN source /opt/ros/humble/setup.bash && rosdep install -y -r -q --from-paths src --ignore-src
 
 USER admin
 
-RUN touch /home/admin/aerostack2_ws/src/aerostack2/as2_aerial_platforms/as2_platform_gazebo/COLCON_IGNORE
-RUN touch /home/admin/aerostack2_ws/src/aerostack2/as2_simulation_assets/COLCON_IGNORE
 WORKDIR /home/admin/aerostack2_ws
 RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
