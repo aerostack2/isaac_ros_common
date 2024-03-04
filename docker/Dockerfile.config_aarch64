@@ -18,4 +18,3 @@ RUN wget https://nvidia.box.com/shared/static/iizg3ggrtdkqawkmebbfixo7sce6j365.w
 RUN python3 -m pip install -U onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
 
 
-

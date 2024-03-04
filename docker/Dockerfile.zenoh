@@ -1,0 +1,29 @@
+# Copyright (c) 2022, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+USER root
+RUN apt-get update && apt-get install -y ros-humble-rmw-cyclonedds-cpp curl
+RUN apt-get install llvm-dev libclang-dev -y
+RUN echo "ip l set lo multicast on" >> /etc/rc.local
+
+USER admin
+
+WORKDIR /home/admin
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
+ENV PATH="/home/admin/.cargo/bin:${PATH}"
+
+RUN git clone https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds.git
+WORKDIR /home/admin/zenoh-plugin-ros2dds
+RUN cargo build --release
+ENV PATH="/home/admin/zenoh-plugin-ros2dds/target/release:${PATH}"
+
+RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /home/admin/.bashrc
+RUN echo 'export ROS_LOCALHOST_ONLY=1' >> /home/admin/.bashrc

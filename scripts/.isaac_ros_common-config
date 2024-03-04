@@ -1,3 +1,2 @@
-CONFIG_IMAGE_KEY="ros2_humble.user.as2.pannel_detector"
-CONFIG_IMAGE_KEY="ros2_humble"
+CONFIG_IMAGE_KEY="ros2_humble.user.as2.zenoh"
 CONFIG_DOCKER_SEARCH_DIRS=(docker)
