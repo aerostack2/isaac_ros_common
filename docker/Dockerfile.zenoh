@@ -26,3 +26,6 @@ ENV PATH="/home/admin/zenoh-plugin-ros2dds/target/release:${PATH}"
 
 RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /home/admin/.bashrc
 RUN echo 'export ROS_LOCALHOST_ONLY=1' >> /home/admin/.bashrc
+
+USER root
+RUN apt-get install -y iproute2 net-tools
