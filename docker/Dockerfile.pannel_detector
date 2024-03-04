@@ -17,8 +17,8 @@ RUN python3 -m pip install -U onnx
 RUN python3 -m pip install -U onnxruntime-gpu
 
 
-WORKDIR /home/admin/
-COPY --chown=admin:admin as2_projects /home/admin/as2_projects
-RUN chmod +x /home/admin/as2_projects/project_copilot/clone_onnx_weights.bash
-RUN bash /home/admin/as2_projects/project_copilot/clone_onnx_weights.bash
+# WORKDIR /home/admin/
+# COPY --chown=admin:admin as2_projects /home/admin/as2_projects
+# RUN chmod +x /home/admin/as2_projects/project_copilot/clone_onnx_weights.bash
+# RUN bash /home/admin/as2_projects/project_copilot/clone_onnx_weights.bash
 
