@@ -154,9 +154,16 @@ DOCKER_ARGS+=("-e FASTRTPS_DEFAULT_PROFILES_FILE=/usr/local/share/middleware_pro
 DOCKER_ARGS+=("-e ROS_DOMAIN_ID")
 DOCKER_ARGS+=("-e USER")
 
-git clone git@github.com:aerostack2/project_copilot.git /home/$USER/project_copilot
-DOCKER_ARGS+=("-v /home/$USER/project_copilot:/home/admin/project_copilot")
-bash /home/$USER/project_copilot/clone_onnx_weights.bash
+# if project_copilot not present, clone it
+if [ -d /home/$USER/project_copilot ]; then
+    print_info "Project Copilot already cloned"
+else
+    print_info "Cloning Project Copilot"
+    git clone git@github.com:aerostack2/project_copilot.git /home/$USER/project_copilot
+    bash /home/$USER/project_copilot/clone_onnx_weights.bash
+fi
+
+DOCKER_ARGS+=("-v /home/$USER/project_copilot:/home/admin/as2_projects/project_copilot")
 
 if [[ $PLATFORM == "aarch64" ]]; then
     DOCKER_ARGS+=("-v /usr/bin/tegrastats:/usr/bin/tegrastats")
