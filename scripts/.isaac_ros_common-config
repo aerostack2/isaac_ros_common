@@ -1,2 +1,2 @@
-CONFIG_IMAGE_KEY="ros2_humble.user.as2.zenoh"
+CONFIG_IMAGE_KEY="ros2_humble.user.zenoh.as2"
 CONFIG_DOCKER_SEARCH_DIRS=(docker)
