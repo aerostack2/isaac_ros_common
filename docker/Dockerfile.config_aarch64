@@ -11,6 +11,7 @@ FROM ${BASE_IMAGE}
 
 USER admin
 
+WORKDIR /home/admin/Downloads
 #install python dependencies for NN
 RUN python3 -m pip install -U ultralytics
 RUN python3 -m pip install -U onnx
