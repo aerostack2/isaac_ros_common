@@ -9,11 +9,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-# USER root
 RUN apt-get update && apt-get install -y ros-humble-rmw-cyclonedds-cpp curl
 RUN apt-get install llvm-dev libclang-dev -y
-
-# USER admin
 
 WORKDIR /root
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
@@ -27,5 +24,4 @@ ENV PATH="/root/zenoh-plugin-ros2dds/target/release:${PATH}"
 RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /root/.bashrc
 RUN echo 'export ROS_LOCALHOST_ONLY=1' >> /root/.bashrc
 
-# USER root
 RUN apt-get install -y iproute2 net-tools

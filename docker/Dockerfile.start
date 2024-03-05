@@ -9,8 +9,5 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-#install python dependencies for NN
-RUN python3 -m pip install -U ultralytics
-RUN python3 -m pip install -U onnx
-RUN python3 -m pip install -U onnxruntime-gpu
-
+WORKDIR /root
+COPY scripts/*entrypoint.sh /usr/local/bin/scripts/

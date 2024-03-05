@@ -12,24 +12,18 @@ FROM ${BASE_IMAGE}
 USER root
 RUN apt-get update && apt-get install -y ros-dev-tools
 
-# USER admin
-
 # create a folder in /root
 WORKDIR /root/aerostack2_ws/src
-
 
 #clone the aerostack2 repository from github
 RUN git clone https://github.com/aerostack2/aerostack2.git
 RUN git clone https://github.com/aerostack2/as2_external_object_to_tf.git
 RUN git clone https://github.com/aerostack2/geozones.git
 
-# USER root
 WORKDIR /root/aerostack2_ws
 RUN touch /root/aerostack2_ws/src/aerostack2/as2_aerial_platforms/as2_platform_gazebo/COLCON_IGNORE
 RUN touch /root/aerostack2_ws/src/aerostack2/as2_simulation_assets/COLCON_IGNORE
 RUN source /opt/ros/humble/setup.bash && rosdep install -y -r -q --from-paths src --ignore-src
-
-# USER admin
 
 WORKDIR /root/aerostack2_ws
 RUN source /opt/ros/humble/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
@@ -49,24 +43,14 @@ RUN python3 -m pip install -U vcstool pymap3d
 WORKDIR /root/psdk_ws/src
 RUN git clone https://github.com/RPS98/psdk_ros2.git -b RPS98_devel && echo "Cloned psdk_ros2 repository"
 
-# USER root
 WORKDIR /root/psdk_ws
 RUN source /opt/ros/humble/setup.bash && rosdep install -y -r -q --from-paths src --ignore-src
 RUN apt-get update && apt-get install -y tmux tmuxinator 
 
 
-# USER admin
 WORKDIR /root/psdk_ws
 RUN git clone https://github.com/aerostack2/as2_platform_dji_psdk.git -b code_refractor
 RUN source /root/aerostack2_ws/install/setup.bash && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 RUN echo "source /root/psdk_ws/install/setup.bash" >> /root/.bashrc
-
-COPY ./udev_rules/DJIDevice.rules /etc/udev/rules.d/DJIDevice.rules
-# COPY ./udev_rules/99-dji-psdk-custom.rules /etc/udev/rules.d/99-dji-psdk-custom.rules
-
-# USER root 
-RUN adduser root dialout
-# USER admin
-
 
