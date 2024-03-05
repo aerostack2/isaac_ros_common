@@ -9,23 +9,23 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-USER root
+# USER root
 RUN apt-get update && apt-get install -y ros-humble-rmw-cyclonedds-cpp curl
 RUN apt-get install llvm-dev libclang-dev -y
 
-USER admin
+# USER admin
 
-WORKDIR /home/admin
+WORKDIR /root
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | bash -s -- -y
-ENV PATH="/home/admin/.cargo/bin:${PATH}"
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 RUN git clone https://github.com/eclipse-zenoh/zenoh-plugin-ros2dds.git
-WORKDIR /home/admin/zenoh-plugin-ros2dds
+WORKDIR /root/zenoh-plugin-ros2dds
 RUN cargo build --release
-ENV PATH="/home/admin/zenoh-plugin-ros2dds/target/release:${PATH}"
+ENV PATH="/root/zenoh-plugin-ros2dds/target/release:${PATH}"
 
-RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /home/admin/.bashrc
-RUN echo 'export ROS_LOCALHOST_ONLY=1' >> /home/admin/.bashrc
+RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> /root/.bashrc
+RUN echo 'export ROS_LOCALHOST_ONLY=1' >> /root/.bashrc
 
-USER root
+# USER root
 RUN apt-get install -y iproute2 net-tools

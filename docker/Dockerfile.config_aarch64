@@ -9,9 +9,9 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-USER admin
+# USER admin
 
-WORKDIR /home/admin/Downloads
+WORKDIR /root/Downloads
 #install python dependencies for NN
 RUN python3 -m pip install -U ultralytics
 RUN python3 -m pip install -U onnx

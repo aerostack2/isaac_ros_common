@@ -9,7 +9,7 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-USER admin
+# USER admin
 
 #install python dependencies for NN
 RUN python3 -m pip install -U ultralytics
