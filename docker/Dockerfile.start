@@ -13,3 +13,4 @@ RUN apt-get install ros-humble-compressed-image-transport
 WORKDIR /root
 COPY scripts/*entrypoint.sh /usr/local/bin/scripts/
 
+RUN wget https://github.com/aerostack2/as2_flight_tools/blob/main/configs/.tmux.conf -O /root/.tmux.conf

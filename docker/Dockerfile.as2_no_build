@@ -43,6 +43,7 @@ RUN source /opt/ros/humble/setup.bash && rosdep install -y -r -q --from-paths sr
 WORKDIR /root/psdk_ws
 RUN git clone https://github.com/aerostack2/as2_platform_dji_psdk.git -b code_refractor
 
+RUN apt-get update && apt-get install -y tmux tmuxinator 
 
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
