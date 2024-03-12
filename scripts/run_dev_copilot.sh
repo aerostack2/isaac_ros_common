@@ -15,6 +15,23 @@ if [[ -f "${ROOT}/.isaac_ros_common-config" ]]; then
     . "${ROOT}/.isaac_ros_common-config"
 fi
 
+PLATFORM="$(uname -m)"
+
+BASE_NAME="isaac_ros_dev-$PLATFORM"
+CONTAINER_NAME="as2_copilot"
+
+# Remove any exited containers.
+if [ "$(docker ps -a --quiet --filter status=exited --filter name=$CONTAINER_NAME)" ]; then
+    docker rm $CONTAINER_NAME > /dev/null
+fi
+
+# Re-use existing container.
+if [ "$(docker ps -a --quiet --filter status=running --filter name=$CONTAINER_NAME)" ]; then
+    print_info "Attaching to running container: $CONTAINER_NAME"
+    docker exec -i -t --workdir /root $CONTAINER_NAME /bin/bash $@
+    exit 0
+fi
+
 print_info "Env variables relevant to build the docker image imported from ISAAC_ROS_COMMON_CONFIG: "
 print_info "NO_BUILD_DOCKER : $NO_BUILD_DOCKER"
 print_info "PROJECT_DIR : $PROJECT_DIR"
@@ -117,22 +134,6 @@ if [[ $? -eq 0 ]]; then
     done
 fi
 
-PLATFORM="$(uname -m)"
-
-BASE_NAME="isaac_ros_dev-$PLATFORM"
-CONTAINER_NAME="as2_copilot"
-
-# Remove any exited containers.
-if [ "$(docker ps -a --quiet --filter status=exited --filter name=$CONTAINER_NAME)" ]; then
-    docker rm $CONTAINER_NAME > /dev/null
-fi
-
-# Re-use existing container.
-if [ "$(docker ps -a --quiet --filter status=running --filter name=$CONTAINER_NAME)" ]; then
-    print_info "Attaching to running container: $CONTAINER_NAME"
-    docker exec -i -t --workdir /root $CONTAINER_NAME /bin/bash $@
-    exit 0
-fi
 
 
 # check if additional configs for the platform exist
@@ -279,7 +280,22 @@ fi
 
 # Run container from image
 print_info "Running $CONTAINER_NAME"
-docker run -it --rm \
+#docker run -it --rm \
+#    --privileged \
+#    --network host \
+#    ${DOCKER_ARGS[@]} \
+#    -v $ISAAC_ROS_DEV_DIR:/workspaces/isaac_ros-dev \
+#    -v /dev:/dev \
+#    -v /etc/localtime:/etc/localtime:ro \
+#    --name "$CONTAINER_NAME" \
+#    --runtime nvidia \
+#    --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \
+#    --workdir /root \
+#    $@ \
+#    $BASE_NAME \
+#    /bin/bash
+
+docker run -d --rm \
     --privileged \
     --network host \
     ${DOCKER_ARGS[@]} \
@@ -292,4 +308,4 @@ docker run -it --rm \
     --workdir /root \
     $@ \
     $BASE_NAME \
-    /bin/bash
+    tail -F /dev/null

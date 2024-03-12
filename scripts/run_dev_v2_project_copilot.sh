@@ -176,6 +176,7 @@ print_info "Using base image key: $BASE_IMAGE_KEY"
 
 
 print_info "Building $BASE_IMAGE_KEY base as image: $BASE_NAME using key $BASE_IMAGE_KEY"
+
 if [ -z $NO_BUILD_DOCKER ]; then
 $ROOT/build_base_image.sh $BASE_IMAGE_KEY $BASE_NAME '' '' ''
 else
