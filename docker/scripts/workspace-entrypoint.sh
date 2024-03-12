@@ -18,6 +18,7 @@
 # Restart udev daemon
 sudo ip l set lo multicast on
 sudo service udev restart
+echo 'jtop:x:1001:root' >> /etc/group
 #sudo udevadm control --reload-rules && sudo udevadm trigger 
 
 $@

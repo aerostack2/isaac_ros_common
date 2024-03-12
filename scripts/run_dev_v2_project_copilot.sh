@@ -106,7 +106,7 @@ fi
 PLATFORM="$(uname -m)"
 
 BASE_NAME="isaac_ros_dev-$PLATFORM"
-CONTAINER_NAME="$BASE_NAME-container"
+CONTAINER_NAME="as2_copilot"
 
 # Remove any exited containers.
 if [ "$(docker ps -a --quiet --filter status=exited --filter name=$CONTAINER_NAME)" ]; then
@@ -116,7 +116,7 @@ fi
 # Re-use existing container.
 if [ "$(docker ps -a --quiet --filter status=running --filter name=$CONTAINER_NAME)" ]; then
     print_info "Attaching to running container: $CONTAINER_NAME"
-    docker exec -i -t -u admin --workdir /workspaces/isaac_ros-dev $CONTAINER_NAME /bin/bash $@
+    docker exec -i -t --workdir /root $CONTAINER_NAME /bin/bash $@
     exit 0
 fi
 
@@ -176,7 +176,11 @@ print_info "Using base image key: $BASE_IMAGE_KEY"
 
 
 print_info "Building $BASE_IMAGE_KEY base as image: $BASE_NAME using key $BASE_IMAGE_KEY"
+if [ -z $NO_BUILD_DOCKER ]; then
 $ROOT/build_base_image.sh $BASE_IMAGE_KEY $BASE_NAME '' '' ''
+else
+print_info "NO BUILD ENABLE" 
+fi
 
 if [ $? -ne 0 ]; then
     print_error "Failed to build base image: $BASE_NAME, aborting."
@@ -194,15 +198,17 @@ DOCKER_ARGS+=("-e ROS_DOMAIN_ID")
 DOCKER_ARGS+=("-e USER")
 
 # if project_copilot not present, clone it
-if [ -d /home/$USER/project_copilot ]; then
+if [ -d /ssd/project_copilot ]; then
     print_info "Project Copilot already cloned"
 else
     print_info "Cloning Project Copilot"
-    git clone git@github.com:aerostack2/project_copilot.git /home/$USER/project_copilot
-    bash /home/$USER/project_copilot/clone_onnx_weights.bash
+    git clone git@github.com:aerostack2/project_copilot.git /ssd/project_copilot
+    bash /ssd/project_copilot/clone_onnx_weights.bash
 fi
 
-DOCKER_ARGS+=("-v /home/$USER/project_copilot:/root/as2_projects/project_copilot")
+DOCKER_ARGS+=("-v /ssd/project_copilot:/root/as2_projects/project_copilot")
+DOCKER_ARGS+=("-v /ssd/aerostack2_ws:/root/aerostack2_ws")
+DOCKER_ARGS+=("-v /ssd/psdk_ws:/root/psdk_ws")
 
 if [[ $PLATFORM == "aarch64" ]]; then
     DOCKER_ARGS+=("-v /usr/bin/tegrastats:/usr/bin/tegrastats")

@@ -9,5 +9,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
+RUN apt-get install ros-humble-compressed-image-transport
+RUN echo alias enable_camera='ros2 service call /M300/psdk_ros2/camera_setup_streaming psdk_interfaces/srv/CameraSetupStreaming "payload_index: 1  camera_source: 0  start_stop: true decoded_output: true' 
 WORKDIR /root
 COPY scripts/*entrypoint.sh /usr/local/bin/scripts/
+
