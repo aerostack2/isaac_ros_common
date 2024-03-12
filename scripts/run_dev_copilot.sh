@@ -11,12 +11,16 @@
 ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 source $ROOT/utils/print_color.sh
 
-print_info "Env variables relevant to build the docker image: "
+if [[ -f "${ROOT}/.isaac_ros_common-config" ]]; then
+    . "${ROOT}/.isaac_ros_common-config"
+fi
 
-print_info "Project directory: $PROJECT_DIR"
-print_info "Project name: $PROJECT_NAME"
-print_info "Aerostack2 workspace dir: $AS2_WS"
-print_info "PSDK workspace dir: $PSDK_WS"
+print_info "Env variables relevant to build the docker image imported from ISAAC_ROS_COMMON_CONFIG: "
+print_info "NO_BUILD_DOCKER : $NO_BUILD_DOCKER"
+print_info "PROJECT_DIR : $PROJECT_DIR"
+print_info "PROJECT_NAME: $PROJECT_NAME"
+print_info "AS2_WS: $AS2_WS"
+print_info "PSDK_WS: $PSDK_WS"
 
 function usage() {
     print_info "Usage: run_dev.sh" {isaac_ros_dev directory path OPTIONAL}
@@ -27,13 +31,10 @@ function usage() {
 #
 # CONFIG_IMAGE_KEY (string, can be empty)
 
-if [[ -f "${ROOT}/.isaac_ros_common-config" ]]; then
-    . "${ROOT}/.isaac_ros_common-config"
-fi
 
-read -p "Begin building? (Y/N): " confirm 
+read -p "Run docker? (y/n): " confirm 
 
-if [[ $confirm != "Y" ]]; then
+if [[ $confirm != "y" ]]; then
   echo "Aborting building" && exit 1
 fi
 
@@ -189,7 +190,7 @@ print_info "Using base image key: $BASE_IMAGE_KEY"
 
 
 print_info "Building $BASE_IMAGE_KEY base as image: $BASE_NAME using key $BASE_IMAGE_KEY"
-if [ -z $NO_BUILD_DOCKER ]; then
+if [[ $NO_BUILD_DOCKER -ne 1 ]]; then
 $ROOT/build_base_image.sh $BASE_IMAGE_KEY $BASE_NAME '' '' ''
 else
 print_info "NO BUILD ENABLE" 
