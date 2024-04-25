@@ -30,6 +30,6 @@ services:
       # - ~/clean_as2:/root/aerostack2_ws
       # - ~/knowledge_graphs_ws:/root/knowledge_graphs_ws
       - ~/Documents/ultralytics:/root/ultralytics
-      - ~/Documents/MINERVA_ARQUIMEA:/root/arquimea
+      - ~/Documents/minerva_training:/root/arquimea
     network_mode: "host"
     command: tail -f /dev/null

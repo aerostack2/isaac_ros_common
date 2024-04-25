@@ -212,12 +212,19 @@ DOCKER_ARGS+=("-e FASTRTPS_DEFAULT_PROFILES_FILE=/usr/local/share/middleware_pro
 DOCKER_ARGS+=("-e ROS_DOMAIN_ID")
 DOCKER_ARGS+=("-e USER")
 
+# if minerva_training not present, clone it
+if [ -d ~/Documents/minerva_training ]; then
+    print_info "minerva_training already cloned"
+else
+    print_info "Cloning minerva_training"
+    git clone git@github.com:cvar-vision-dl/minerva_training.git ~/Documents/minerva_training
+fi
 # if custom ultralytics not present, clone it
-if [ -d /home/cvar/Documents/ultralytics ]; then
+if [ -d ~/Documents/ultralytics ]; then
     print_info "Ultralytics already cloned"
 else
     print_info "Cloning Ultralytics"
-    git clone -b 5_channels git@github.com:cvar-vision-dl/ultralytics.git /home/cvar/Documents/ultralytics
+    git clone -b 5_channels git@github.com:cvar-vision-dl/ultralytics.git ~/Documents/ultralytics
 fi
 
 # mount ultralytics fork
