@@ -212,35 +212,31 @@ DOCKER_ARGS+=("-e FASTRTPS_DEFAULT_PROFILES_FILE=/usr/local/share/middleware_pro
 DOCKER_ARGS+=("-e ROS_DOMAIN_ID")
 DOCKER_ARGS+=("-e USER")
 
-# if project_copilot not present, clone it
-if [ -d /ssd/project_copilot ]; then
-    print_info "Project Copilot already cloned"
+# if custom ultralytics not present, clone it
+if [ -d /home/cvar/Documents/ultralytics ]; then
+    print_info "Ultralytics already cloned"
 else
-    print_info "Cloning Project Copilot"
-    git clone git@github.com:aerostack2/project_copilot.git /ssd/project_copilot
-    bash /ssd/project_copilot/clone_onnx_weights.bash
+    print_info "Cloning Ultralytics"
+    git clone -b 5_channels git@github.com:cvar-vision-dl/ultralytics.git /home/cvar/Documents/ultralytics
 fi
+
+# mount ultralytics fork
+# DOCKER_ARGS+=("-v ~/Documents/ultralytics:/root/ultralytics")
+
+# if project_copilot not present, clone it
 
 # Check for project dir and mount it
-if [[ -z "${PROJECT_DIR}" ]]; then
-    print_warning "Project directory not specified. Project directory won't be mounted."
-else
-    DOCKER_ARGS+=("-v $PROJECT_DIR:/root/as2_projects/$PROJECT_NAME")
-fi
+# if [[ -z "${PROJECT_DIR}" ]]; then
+#     print_warning "Project directory not specified. Project directory won't be mounted."
+# else
+#     DOCKER_ARGS+=("-v $PROJECT_DIR:/root/$PROJECT_NAME")
+# fi
 
 # Check for Aerostack2 workspace and mount it
-if [[ -z "${AS2_WS}" ]]; then
-    print_warning "Aerostack2 workspace not specified. AS2_WS won't be mounted."
-else
-    DOCKER_ARGS+=("-v $AS2_WS:/root/aerostack2_ws")
-fi
+
 
 # Check for PSDK workspace and mount it
-if [[ -z "${PSDK_WS}" ]]; then
-    print_warning "PSDK workspace not specified. PSDK workspace won't be mounted."
-else
-    DOCKER_ARGS+=("-v $PSDK_WS:/root/psdk_ws")
-fi
+
 
 if [[ $PLATFORM == "aarch64" ]]; then
     DOCKER_ARGS+=("-v /usr/bin/tegrastats:/usr/bin/tegrastats")

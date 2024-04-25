@@ -1,0 +1,16 @@
+# Copyright (c) 2021-2022, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+RUN python3 -m pip install -U hub_sdk
+RUN echo "export PYTHONPATH=$PYTHONPATH:/root/ultralytics/" >> /root/.bashrc
+
+RUN apt-get install -y wget
+RUN wget https://drive.upm.es/s/EUBO5W6IV2Aneu9/download -O /root/weights.onnx

@@ -1,0 +1,35 @@
+services:
+  ros2:
+    image: isaac_ros_dev-x86_64
+    container_name: arquimea_container
+    environment:
+      DISPLAY: $DISPLAY
+      XAUTHORITY: $XAUTHORITY
+      SSH_AUTH_SOCK: $SSH_AUTH_SOCK
+    runtime: nvidia
+    privileged: true
+    restart: always
+    volumes:
+      # display related 
+      - ~/.Xauthority:/root/.Xauthority
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      # ssh related
+      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+      # # nvim related
+      # - ~/.config/nvim:/root/.config/nvim
+      # - ~/.config/coc:/root/.config/coc
+      # - ~/.config/github-copilot:/root/.config/github-copilot
+      # - ~/.local/share/nvim/:/root/.local/share/nvim/
+      # # tmux related
+      # - ~/.tmux:/root/.tmux
+      # - ~/.tmux.conf:/root/.tmux.conf
+      # git
+      - ~/.gitconfig:/root/.gitconfig_local
+      # working dirs
+      # - ~/aerostack2_ws:/root/aerostack2_ws
+      # - ~/clean_as2:/root/aerostack2_ws
+      # - ~/knowledge_graphs_ws:/root/knowledge_graphs_ws
+      - ~/Documents/ultralytics:/root/ultralytics
+      - ~/Documents/MINERVA_ARQUIMEA:/root/arquimea
+    network_mode: "host"
+    command: tail -f /dev/null

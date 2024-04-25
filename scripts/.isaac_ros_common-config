@@ -1,8 +1,8 @@
-PROJECT_DIR="/ssd/project_copilot"
-PROJECT_NAME="project_copilot"
+PROJECT_DIR="/home/cvar/Documents/MINERVA_ARQUIMEA"
+PROJECT_NAME="arquimea"
 AS2_WS="/ssd/aerostack2_ws/"
 PSDK_WS="/ssd/psdk_ws/"
 
 
-CONFIG_IMAGE_KEY="ros2_humble.user.zenoh.as2_no_build.start"
+CONFIG_IMAGE_KEY="ros2_humble.user.start.arquimea"
 CONFIG_DOCKER_SEARCH_DIRS=(docker)
