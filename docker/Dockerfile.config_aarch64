@@ -11,7 +11,7 @@ FROM ${BASE_IMAGE}
 
 WORKDIR /root/Downloads
 #install python dependencies for NN
-RUN python3 -m pip install -U ultralytics
+
 RUN python3 -m pip install -U onnx
 RUN wget https://nvidia.box.com/shared/static/iizg3ggrtdkqawkmebbfixo7sce6j365.whl -O onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
 RUN python3 -m pip install -U onnxruntime_gpu-1.16.0-cp38-cp38-linux_aarch64.whl
