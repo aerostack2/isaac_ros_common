@@ -10,6 +10,7 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
 RUN python3 -m pip install -U hub_sdk
+RUN python3 -m pip install -U natsorted
 RUN echo "export PYTHONPATH=$PYTHONPATH:/root/ultralytics/" >> /root/.bashrc
 
 RUN apt-get install -y wget
