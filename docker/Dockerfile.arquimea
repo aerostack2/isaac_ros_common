@@ -15,3 +15,6 @@ RUN echo "export PYTHONPATH=$PYTHONPATH:/root/ultralytics/" >> /root/.bashrc
 
 RUN apt-get install -y wget
 RUN wget https://drive.upm.es/s/EUBO5W6IV2Aneu9/download -O /root/weights.onnx
+
+RUN python3 -m pip install -U neptune
+
