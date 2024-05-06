@@ -319,4 +319,4 @@ fi
 #     $BASE_NAME \
 #     tail -F /dev/null
 
-print "Done"
+print_info "Done"
