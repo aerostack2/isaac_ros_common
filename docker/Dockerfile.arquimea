@@ -12,6 +12,8 @@ FROM ${BASE_IMAGE}
 RUN python3 -m pip install -U ultralytics
 RUN python3 -m pip install -U hub_sdk
 RUN python3 -m pip install -U natsort
+RUN python3 -m pip install -U neptune
+
 RUN echo "export PYTHONPATH=$PYTHONPATH:/root/ultralytics/" >> /root/.bashrc
 
 RUN apt-get install -y wget
@@ -20,5 +22,4 @@ RUN wget https://drive.upm.es/s/mbvKx6QtCVP9kM4/download -O /root/best_cam0_FLIR
 RUN wget https://drive.upm.es/s/xlzfDJ2w5spLs3E/download -O /root/best_cam0_medium.onnx
 RUN wget https://drive.upm.es/s/zt7ON0HFyM7Uc2C/download -O /root/best_cam0_nano.onnx
 
-RUN python3 -m pip install -U neptune
 

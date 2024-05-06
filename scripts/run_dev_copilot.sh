@@ -288,7 +288,7 @@ if [[ -f "$DOCKER_ARGS_FILE" ]]; then
 fi
 
 # Run container from image
-print_info "Running $CONTAINER_NAME"
+# print_info "Running $CONTAINER_NAME"
 #docker run -it --rm \
 #    --privileged \
 #    --network host \
@@ -304,17 +304,19 @@ print_info "Running $CONTAINER_NAME"
 #    $BASE_NAME \
 #    /bin/bash
 
-docker run -d --rm \
-    --privileged \
-    --network host \
-    ${DOCKER_ARGS[@]} \
-    -v $ISAAC_ROS_DEV_DIR:/workspaces/isaac_ros-dev \
-    -v /dev:/dev \
-    -v /etc/localtime:/etc/localtime:ro \
-    --name "$CONTAINER_NAME" \
-    --runtime nvidia \
-    --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \
-    --workdir /root \
-    $@ \
-    $BASE_NAME \
-    tail -F /dev/null
+# docker run -d --rm \
+#     --privileged \
+#     --network host \
+#     ${DOCKER_ARGS[@]} \
+#     -v $ISAAC_ROS_DEV_DIR:/workspaces/isaac_ros-dev \
+#     -v /dev:/dev \
+#     -v /etc/localtime:/etc/localtime:ro \
+#     --name "$CONTAINER_NAME" \
+#     --runtime nvidia \
+#     --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \
+#     --workdir /root \
+#     $@ \
+#     $BASE_NAME \
+#     tail -F /dev/null
+
+print "Done"
