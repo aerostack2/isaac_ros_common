@@ -20,5 +20,6 @@ services:
       # working dirs
       - ~/Documents/ultralytics:/root/ultralytics
       - ~/Documents/minerva_training:/root/arquimea
+      - /mnt/b/rodrigo/arquimea:/root/runs
     network_mode: "host"
     command: tail -f /dev/null
