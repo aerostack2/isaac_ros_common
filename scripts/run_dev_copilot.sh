@@ -214,14 +214,20 @@ DOCKER_ARGS+=("-e USER")
 
 # if minerva_training not present, clone it
 if [ -d ~/Documents/minerva_training ]; then
-    print_info "minerva_training already cloned"
+    print_info "minerva_training already cloned. Pulling..."
+    cd ~/Documents/minerva_training
+    git pull
+    cd -
 else
     print_info "Cloning minerva_training"
     git clone git@github.com:cvar-vision-dl/minerva_training.git ~/Documents/minerva_training
 fi
 # if custom ultralytics not present, clone it
 if [ -d ~/Documents/ultralytics ]; then
-    print_info "Ultralytics already cloned"
+    print_info "Ultralytics already cloned. Pulling..."
+    cd ~/Documents/ultralytics
+    git pull
+    cd -
 else
     print_info "Cloning Ultralytics"
     git clone -b 5_channels git@github.com:cvar-vision-dl/ultralytics.git ~/Documents/ultralytics
