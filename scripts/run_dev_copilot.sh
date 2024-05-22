@@ -213,24 +213,36 @@ DOCKER_ARGS+=("-e ROS_DOMAIN_ID")
 DOCKER_ARGS+=("-e USER")
 
 # if minerva_training not present, clone it
-if [ -d ~/Documents/minerva_training ]; then
+if [ -d ~/minerva_training ]; then
     print_info "minerva_training already cloned. Pulling..."
-    cd ~/Documents/minerva_training
+    cd ~/minerva_training
     git pull
     cd -
 else
     print_info "Cloning minerva_training"
-    git clone git@github.com:cvar-vision-dl/minerva_training.git ~/Documents/minerva_training
+    git clone git@github.com:cvar-vision-dl/minerva_training.git ~/minerva_training
 fi
+
 # if custom ultralytics not present, clone it
-if [ -d ~/Documents/ultralytics ]; then
+if [ -d ~/ultralytics ]; then
     print_info "Ultralytics already cloned. Pulling..."
-    cd ~/Documents/ultralytics
+    cd ~/ultralytics
     git pull
     cd -
 else
     print_info "Cloning Ultralytics"
-    git clone -b 5_channels git@github.com:cvar-vision-dl/ultralytics.git ~/Documents/ultralytics
+    git clone -b 5_channels git@github.com:cvar-vision-dl/ultralytics.git ~/ultralytics
+fi
+
+# if format unifier not present, clone it
+if [ -d ~/format_unifier ]; then
+    print_info "Format unifier already cloned. Pulling..."
+    cd ~/format_unifier
+    git pull
+    cd -
+else
+    print_info "Cloning Format unifier"
+    git clone git@github.com:cvar-vision-dl/format_unifier.git ~/format_unifier
 fi
 
 # mount ultralytics fork

@@ -18,8 +18,8 @@ services:
       # git
       - ~/.gitconfig:/root/.gitconfig_local
       # working dirs
-      - ~/Documents/ultralytics:/root/ultralytics
-      - ~/Documents/minerva_training:/root/arquimea
+      - ~/ultralytics:/root/ultralytics
+      - ~/minerva_training:/root/arquimea
       # aarch64 related
       - /usr/bin/tegrastats:/usr/bin/tegrastats
       - /tmp/argus_socket:/tmp/argus_socket

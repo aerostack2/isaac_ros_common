@@ -14,12 +14,13 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ~/.Xauthority:/root/.Xauthority
       # ssh related
-      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+      # - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
       # git
       - ~/.gitconfig:/root/.gitconfig_local
       # working dirs
-      - ~/Documents/ultralytics:/root/ultralytics
-      - ~/Documents/minerva_training:/root/arquimea
-      - /mnt/b/rodrigo/arquimea:/root/runs
+      - ~/ultralytics:/root/ultralytics
+      - ~/minerva_training:/root/arquimea
+      - ~/format_unifier:/root/format_unifier
+      # - /mnt/b/rodrigo/arquimea:/root/runs
     network_mode: "host"
     command: tail -f /dev/null
