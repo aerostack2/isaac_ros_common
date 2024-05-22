@@ -20,7 +20,9 @@ services:
       # working dirs
       - ~/ultralytics:/root/ultralytics
       - ~/minerva_training:/root/arquimea
+      - ~/minerva_training/datasets:/root/datasets
       - ~/format_unifier:/root/format_unifier
       - /mnt/a/rodrigo:/root/runs
+      - /mnt/a/rodrigo/arquimea:/root/arquimea/arquimea
     network_mode: "host"
     command: tail -f /dev/null
