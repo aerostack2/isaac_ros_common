@@ -19,8 +19,8 @@ RUN python3 -m pip install -U shapely
 RUN python3 -m pip install -U opencv-contrib-python
 RUN python3 -m pip install -U azure-storage-blob
 
-RUN echo "export PYTHONPATH=$PYTHONPATH:/root/ultralytics/" >> /root/.bashrc
-RUN echo "export PYTHONPATH=$PYTHONPATH:/root/format_unifier/" >> /root/.bashrc
+RUN echo "export PYTHONPATH=\$PYTHONPATH:/root/ultralytics/" >> /root/.bashrc
+RUN echo "export PYTHONPATH=\$PYTHONPATH:/root/format_unifier/" >> /root/.bashrc
 
 RUN apt-get install -y wget
 RUN wget https://drive.upm.es/s/EUBO5W6IV2Aneu9/download -O /root/best_5_channels_nano.onnx
