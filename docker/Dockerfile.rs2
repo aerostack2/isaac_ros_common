@@ -1,0 +1,20 @@
+# Copyright (c) 2023, NVIDIA CORPORATION.  All rights reserved.
+#
+# NVIDIA CORPORATION and its licensors retain all intellectual property
+# and proprietary rights in and to this software, related documentation
+# and any modifications thereto.  Any use, reproduction, disclosure or
+# distribution of this software and related documentation without an express
+# license agreement from NVIDIA CORPORATION is strictly prohibited.
+
+# Dockerfile for setting up Realsense driver
+#  https://github.com/jetsonhacks/installRealSenseSDK
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+#RUN apt-get install software-properties-common
+RUN add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo bionic main" -u
+RUN apt-get install librealsense2=2.53.1-0~realsense0.703  -y 
+RUN apt-get install librealsense2-gl=2.53.1-0~realsense0.703  -y 
+RUN apt-get install librealsense2-utils=2.53.1-0~realsense0.703  -y
+RUN apt-get install librealsense2-udev-rules=2.53.1-0~realsense0.703 -y --allow-downgrades
