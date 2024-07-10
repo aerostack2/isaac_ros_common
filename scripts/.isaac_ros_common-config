@@ -4,5 +4,5 @@ AS2_WS="/ssd/aerostack2_ws/"
 PSDK_WS="/ssd/psdk_ws/"
 
 
-CONFIG_IMAGE_KEY="ros2_humble.user.zenoh.as2_no_build.start"
+CONFIG_IMAGE_KEY="ros2_humble.user.zenoh.as2_no_build.windsensor.start"
 CONFIG_DOCKER_SEARCH_DIRS=(docker)
