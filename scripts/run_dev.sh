@@ -116,7 +116,7 @@ fi
 # Re-use existing container.
 if [ "$(docker ps -a --quiet --filter status=running --filter name=$CONTAINER_NAME)" ]; then
     print_info "Attaching to running container: $CONTAINER_NAME"
-    docker exec -i -t -u admin --workdir /workspaces/isaac_ros-dev $CONTAINER_NAME /bin/bash $@
+    docker exec -i -t -u root --workdir /workspaces/isaac_ros-dev $CONTAINER_NAME /bin/bash $@
     exit 0
 fi
 
@@ -146,7 +146,7 @@ fi
 
 # Map host's display socket to docker
 DOCKER_ARGS+=("-v /tmp/.X11-unix:/tmp/.X11-unix")
-DOCKER_ARGS+=("-v $HOME/.Xauthority:/home/admin/.Xauthority:rw")
+DOCKER_ARGS+=("-v $HOME/.Xauthority:/home/root/.Xauthority:rw")
 DOCKER_ARGS+=("-e DISPLAY")
 DOCKER_ARGS+=("-e NVIDIA_VISIBLE_DEVICES=all")
 DOCKER_ARGS+=("-e NVIDIA_DRIVER_CAPABILITIES=all")
@@ -201,7 +201,7 @@ docker run -it --rm \
     -v /etc/localtime:/etc/localtime:ro \
     --name "$CONTAINER_NAME" \
     --runtime nvidia \
-    --user="admin" \
+    --user="root" \
     --entrypoint /usr/local/bin/scripts/workspace-entrypoint.sh \
     --workdir /workspaces/isaac_ros-dev \
     $@ \

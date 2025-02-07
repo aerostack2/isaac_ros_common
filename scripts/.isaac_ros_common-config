@@ -1,2 +1,8 @@
-CONFIG_IMAGE_KEY="ros2_humble.user.zenoh.as2"
+PROJECT_DIR="/home/cvar/Documents/INSERTION"
+PROJECT_NAME="arquimea"
+AS2_WS="/ssd/aerostack2_ws/"
+PSDK_WS="/ssd/psdk_ws/"
+
+
+CONFIG_IMAGE_KEY="ros2_humble.user.as2.start.insertion"
 CONFIG_DOCKER_SEARCH_DIRS=(docker)

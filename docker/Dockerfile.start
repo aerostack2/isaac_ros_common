@@ -9,8 +9,8 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-#install python dependencies for NN
-RUN python3 -m pip install -U ultralytics
-RUN python3 -m pip install -U onnx
-RUN python3 -m pip install -U onnxruntime-gpu
+RUN apt-get install ros-humble-compressed-image-transport
+WORKDIR /root
+RUN wget https://raw.githubusercontent.com/aerostack2/as2_flight_tools/main/configs/.tmux.conf -O /root/.tmux.conf
+COPY scripts/*entrypoint.sh /usr/local/bin/scripts/
 
