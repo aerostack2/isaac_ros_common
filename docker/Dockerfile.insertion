@@ -31,3 +31,6 @@ RUN wget https://drive.upm.es/s/zt7ON0HFyM7Uc2C/download -O /root/best_cam0_nano
 RUN apt install -y bridge-utils
 RUN apt install -y net-tools
 RUN apt install -y libaio-dev
+
+RUN apt install -y tmux
+RUN apt install -y tmuxinator
