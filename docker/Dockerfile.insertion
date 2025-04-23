@@ -34,7 +34,6 @@ RUN apt install -y libaio-dev
 
 RUN apt install -y tmux
 RUN apt install -y tmuxinator
-
 RUN rm /etc/apt/sources.list.d/*kitware*
 RUN echo "deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /" | tee -a /etc/apt/sources.list > /dev/null
 RUN apt update && apt install zenoh-bridge-ros2dds -y 
