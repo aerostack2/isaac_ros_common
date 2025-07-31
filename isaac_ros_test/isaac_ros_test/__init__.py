@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: NVIDIA CORPORATION & AFFILIATES
-# Copyright (c) 2021-2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# Copyright (c) 2021-2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 from .cpu_profiler import CPUProfiler
 from .isaac_ros_base_test import IsaacROSBaseTest
 from .json_conversion import JSONConversion
+from .mock_model_generator import MockModelGenerator
 from .pcd_loader import PCDLoader
 from .pose_utilities import PoseUtilities
 from .tegrastats_profiler import TegrastatsProfiler
@@ -28,7 +29,8 @@ __all__ = [
     'CPUProfiler',
     'IsaacROSBaseTest',
     'JSONConversion',
-    'TegrastatsProfiler',
+    'MockModelGenerator',
     'PCDLoader',
     'PoseUtilities',
+    'TegrastatsProfiler',
 ]

@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: NVIDIA CORPORATION & AFFILIATES
-# Copyright (c) 2021-2023 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+# Copyright (c) 2021-2024 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -100,7 +100,7 @@ class JSONConversion:
         camera_info.r = camera_info_json['R']
         camera_info.p = camera_info_json['P']
 
-        if(desired_size):
+        if desired_size:
             camera_info.width = desired_size[0]
             camera_info.height = desired_size[1]
         return camera_info

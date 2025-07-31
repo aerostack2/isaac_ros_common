@@ -1,6 +1,3 @@
 # Ignore all pycache files
 **/__pycache__/**
 
-# Ignore config files
-# .isaac_ros_common-config
-docker/as2_projects/
