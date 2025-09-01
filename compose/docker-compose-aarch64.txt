@@ -6,7 +6,7 @@ services:
       DISPLAY: $DISPLAY
       XAUTHORITY: $XAUTHORITY
       SSH_AUTH_SOCK: $SSH_AUTH_SOCK
-      ROS_LOCALHOST_ONLY: 1
+      ROS_LOCALHOST_ONLY: 0
     runtime: nvidia
     privileged: true
     restart: always
@@ -19,6 +19,7 @@ services:
       # git
       - ~/.gitconfig:/root/.gitconfig_local
       - ~/project_dji_psdk:/root/project_dji_psdk
+      - ~/project_aerogenia:/root/project_aerogenia
       - /dev:/dev
       - /sys/kernel/config:/sys/kernel/config
       - /lib/modules:/lib/modules

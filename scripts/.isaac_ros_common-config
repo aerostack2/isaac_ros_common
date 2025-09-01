@@ -4,5 +4,5 @@ AS2_WS="/ssd/aerostack2_ws/"
 PSDK_WS="/ssd/psdk_ws/"
 
 
-CONFIG_IMAGE_KEY="ros2_humble.user.as2.start.insertion"
+CONFIG_IMAGE_KEY="ros2_humble.user.as2.start"
 CONFIG_DOCKER_SEARCH_DIRS=(docker)

@@ -9,8 +9,17 @@
 ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 
-RUN apt-get install ros-humble-compressed-image-transport
-WORKDIR /root
-RUN wget https://raw.githubusercontent.com/aerostack2/as2_flight_tools/main/configs/.tmux.conf -O /root/.tmux.conf
+USER root
+
+# Install compressed-image-transport, wget, and fetch tmux config in one layer
+RUN apt-get update --allow-insecure-repositories \
+    && apt-get install -y --no-install-recommends wget ros-humble-compressed-image-transport \
+    && rm -rf /var/lib/apt/lists/* \
+    && wget https://raw.githubusercontent.com/aerostack2/as2_flight_tools/main/configs/.tmux.conf -O /root/.tmux.conf
+
+# Copy entrypoint scripts
 COPY scripts/*entrypoint.sh /usr/local/bin/scripts/
+
+# Set default working directory
+WORKDIR /root
 
