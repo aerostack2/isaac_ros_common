@@ -12,4 +12,4 @@ fi
 
 docker compose up -d
 
-docker exec -it arquimea_container /bin/bash
+docker exec -it aerogenia_container /bin/bash

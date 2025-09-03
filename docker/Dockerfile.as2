@@ -16,9 +16,7 @@ RUN apt-get update --allow-insecure-repositories \
     && apt-get install -y --no-install-recommends \
        ros-dev-tools ros-humble-rmw-cyclonedds-cpp \
        bridge-utils net-tools libaio-dev tmux tmuxinator \
-    && echo 'deb [trusted=yes] https://download.eclipse.org/zenoh/debian-repo/ /' > /etc/apt/sources.list.d/zenoh.list \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends zenoh-bridge-ros2dds
+    && apt-get update
 
 # Install Python tools
 RUN python3 -m pip install -U pysimplegui tk vcstool pymap3d

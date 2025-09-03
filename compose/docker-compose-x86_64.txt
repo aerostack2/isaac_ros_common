@@ -1,7 +1,7 @@
 services:
   ros2:
     image: isaac_ros_dev-x86_64
-    container_name: arquimea_container
+    container_name: aerogenia_container
     environment:
       DISPLAY: $DISPLAY
       XAUTHORITY: $XAUTHORITY
