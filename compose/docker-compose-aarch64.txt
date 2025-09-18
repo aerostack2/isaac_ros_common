@@ -1,7 +1,7 @@
 services:
   ros2:
     image: isaac_ros_dev-aarch64
-    container_name: aerogenia_container
+    container_name: insertion_container
     environment:
       DISPLAY: $DISPLAY
       XAUTHORITY: $XAUTHORITY
@@ -19,7 +19,7 @@ services:
       # git
       - ~/.gitconfig:/root/.gitconfig_local
       - ~/project_dji_psdk:/root/project_dji_psdk
-      - ~/project_aerogenia:/root/project_aerogenia
+      - ~/project_insertion:/root/project_insertion
       - /dev:/dev
       - /sys/kernel/config:/sys/kernel/config
       - /lib/modules:/lib/modules
