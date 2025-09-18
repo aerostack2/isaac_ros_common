@@ -26,6 +26,8 @@ RUN mkdir -p /root/aerostack2_ws/src/thirdparty \
     && cd /root/aerostack2_ws/src \
     && git clone -b mission_interpreter_improvements https://github.com/aerostack2/aerostack2.git \
     && cd /root/aerostack2_ws/src/aerostack2 \
+    && git pull \
+    && cd /root/aerostack2_ws/src/ \
     && git clone -b humble-devel https://github.com/MOCAP4ROS2-Project/mocap4r2_msgs.git thirdparty/mocap4r2_msgs \
     && git clone https://github.com/aerostack2/as2_platform_dji_psdk.git aerostack2/as2_aerial_platforms/as2_platform_dji_psdk \
     && touch /root/aerostack2_ws/src/aerostack2/as2_aerial_platforms/as2_platform_gazebo/COLCON_IGNORE \
